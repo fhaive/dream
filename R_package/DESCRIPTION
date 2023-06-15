@@ -1,0 +1,42 @@
+Package: DREAM
+Title: DREAM
+Version: 0.1.0
+Authors@R: 
+    c(person(given = "Antonio",
+           family = "Federico",
+           role = c("aut", "cre"),
+           email = "antonio.federico@tuni.fi",
+           comment = c(ORCID = "0000-0003-2554-9879")),
+      person(given = "Michele",
+             family = "Fratello",
+             role = c("aut", "ctb"),
+             email = "michele.fratello@tuni.fi",
+             comment = c(ORCID = "0000-0002-3997-2339")),
+      person(given = "Angela",
+             family = "Serra",
+             role = c("ctb"),
+             email = "angela.serra@tuni.fi",
+             comment = c(ORCID = "0000-0002-3374-1492"))
+    )
+Description: What the package does (one paragraph).
+Depends:
+    R (>= 4.0.5),
+    base,
+    abind,
+    doParallel,
+    foreach,
+    minet,
+    parallel,
+    utils,
+    httr,
+    stringdist,
+    igraph,
+    stats,
+    TopKLists,
+    processx
+License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
+    license
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3
