@@ -42,19 +42,17 @@ RUN wget --no-hsts --quiet https://github.com/conda-forge/miniforge/releases/lat
     echo ". ${CONDA_DIR}/etc/profile.d/conda.sh && conda activate base" >> ~/.bashrc
 
 COPY environment.yml /tmp/environment.yml
-COPY Python_package/dist/dream-0.1.dev0-py3-none-any.whl /tmp/dream-0.1.dev0-py3-none-any.whl
-COPY R_package/DREAM_0.1.0.tar.gz /tmp/DREAM_0.1.0.tar.gz
 
 SHELL ["/bin/bash", "--login", "-c"]
 RUN mamba env update -n base -f /tmp/environment.yml
 RUN mamba run -n base R -e "install.packages('TopKLists', dependencies=FALSE, repos='http://cran.us.r-project.org')"
 RUN mamba run -n base R -e "devtools::install_github('filosi/nettools', dependencies=FALSE, upgrade_dependencies=FALSE)"
 RUN mamba run -n base R -e "install.packages('IRkernel', dependencies=FALSE, repos='http://cran.us.r-project.org'); IRkernel::installspec(user=FALSE)"
-RUN mamba run -n base pip install /tmp/dream-0.1.dev0-py3-none-any.whl
-RUN mamba run -n base R CMD INSTALL /tmp/DREAM_0.1.0.tar.gz
+RUN mamba run -n base R -e "install.packages('https://github.com/fhaive/dream/releases/download/public/DREAM_0.1.0.tar.gz', repos=NULL)"
+RUN mamba run -n base pip install https://github.com/fhaive/dream/releases/download/public/dream-0.1.dev0-py3-none-any.whl
 
 # make sure entrypoint.sh has +x flag
-COPY entrypoint.sh /entrypoint.sh
+COPY docker_entrypoint.sh /entrypoint.sh
 RUN mkdir -p /workspace && chmod -R 777 /workspace
 WORKDIR /workspace
 ENTRYPOINT [ "/entrypoint.sh" ]

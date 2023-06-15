@@ -15,8 +15,8 @@ After creating the environment run the following commands to complete the instal
 conda run -n dream R -e "install.packages('TopKLists', dependencies=FALSE, repos='http://cran.us.r-project.org')"
 conda run -n dream R -e "devtools::install_github('filosi/nettools', dependencies=FALSE, upgrade_dependencies=FALSE)"
 conda run -n dream R -e "install.packages('IRkernel', dependencies=FALSE, repos='http://cran.us.r-project.org'); IRkernel::installspec()"
-conda run -n dream R -e "install.packages('http://localhost:9000/DREAM_0.1.0.tar.gz', repos=NULL)"
-conda run -n dream pip install http://localhost:9000/dist/dream-0.1.dev0-py3-none-any.whl
+conda run -n dream R -e "install.packages('https://github.com/fhaive/dream/releases/download/public/DREAM_0.1.0.tar.gz', repos=NULL)"
+conda run -n dream pip install https://github.com/fhaive/dream/releases/download/public/dream-0.1.dev0-py3-none-any.whl
 ```
 ## Use the environment
 The environment provides a Jupyter server in which it is possible to run R code and perform analyses with DREAM.
@@ -42,17 +42,6 @@ To build the docker image from scratch, use the following commands:
 # clone the repository
 git clone git@github.com:fhaive/dream.git
 cd dream/
-# follow the instructions above to create the environment
-# activate the environment
-conda activate dream
-# build the python package
-cd Python_package/
-python setup.py bdist_wheel
-# build the R package
-cd ../R_package/
-R CMD build .
-# build the docker
-cd ..
 docker build -t dream .
 # after building, run the container
 docker run -it --rm -p8888:8888 -e UID=$(id -u) -e GID=$(id -g) -v$(pwd):/workspace dream
